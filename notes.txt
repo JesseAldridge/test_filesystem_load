@@ -4,3 +4,23 @@ time ls ~/Desktop/test_data | python stdin.py
 real  0m0.612s
 user  0m0.406s
 sys 0m0.269s
+
+
+
+concurrent_io_two:
+total time: 0.729078054428
+total time: 0.534952878952
+total time: 0.602339982986
+total time: 0.657876014709
+total time: 0.546459197998
+
+
+concurrent_io_ten:
+total time: 0.7039539814
+total time: 0.757742881775
+total time: 0.775475978851
+total time: 0.865708112717
+total time: 0.757488965988
+
+concurrent_io_ten_no_sort:
+same as above
