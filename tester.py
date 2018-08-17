@@ -31,7 +31,6 @@ def main():
   reader_funcs = [file_readers.normal_read, file_readers.concurrent_read]
   random.shuffle(reader_funcs)
 
-  dir_path = os.path.expanduser("~/Desktop/test_data")
   sort_to_lister_to_times = {}
   for i_run in range(10):
     for should_sort in [True, False]:
@@ -39,7 +38,7 @@ def main():
       for base_lister in lister_funcs:
         sort_to_lister_to_times[should_sort].setdefault(base_lister.__name__, {})
         if should_sort:
-          final_lister = lambda dir_path: sort_by_inode(base_lister(dir_path))
+          final_lister = lambda dir_path: sort_by_inode(base_lister(config.DIR_PATH))
         else:
           final_lister = base_lister
 
@@ -54,7 +53,7 @@ def main():
                 'reader:', reader.__name__
 
           # Run generate_fake_data.py to create the data to load.
-          time_taken = load_test_data(dir_path, final_lister, reader)
+          time_taken = load_test_data(config.DIR_PATH, final_lister, reader)
           reader_to_times[reader.__name__].append(time_taken)
 
   json_str = json.dumps(sort_to_lister_to_times, indent=2)
