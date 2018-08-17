@@ -1,5 +1,5 @@
 # https://github.com/ggreer/the_silver_searcher
-cd ~/Desktop/test_data
+cd ~/test_filesystem_load_data
 sudo purge
 time ag xxxxxx
 
