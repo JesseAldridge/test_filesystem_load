@@ -1,5 +1,7 @@
 import glob, os, threading, time
 
+import config
+
 all_data = []
 
 def load_notes(dir_path, each_filename, read_file):
@@ -20,9 +22,7 @@ def normal_load(path):
     return f.read()
 
 start_time = time.time()
-
-DIR_PATH = os.path.expanduser("~/Desktop/test_data")
-all_paths = glob.glob(os.path.join(DIR_PATH, '*.txt'))
+all_paths = glob.glob(os.path.join(config.DIR_PATH, '*.txt'))
 
 threads = []
 
@@ -35,8 +35,8 @@ def second_half(dir_path):
     yield all_paths[i]
 
 targets = [
-  lambda: load_notes(DIR_PATH, first_half, normal_load),
-  lambda: load_notes(DIR_PATH, second_half, normal_load),
+  lambda: load_notes(config.DIR_PATH, first_half, normal_load),
+  lambda: load_notes(config.DIR_PATH, second_half, normal_load),
 ]
 
 for target in targets:

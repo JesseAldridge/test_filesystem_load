@@ -1,12 +1,12 @@
-import os, random, string
+import os, random, string, shutil
 
-dir_path = os.path.expanduser('~/Desktop/test_data')
+import config
 
-if not os.path.exists(dir_path):
-  os.mkdir(dir_path)
+def generate_fake_data():
+  shutil.rmtree(config.DIR_PATH)
+  os.mkdir(config.DIR_PATH)
 
-for i in range(10000):
-  print 'i:', i
-  file_path = os.path.join(dir_path, str(i)) + '.txt'
-  with open(file_path, 'w') as f:
-    f.write(''.join(random.choice(string.letters) for _ in range(1000)))
+  for i in range(1000):
+    file_path = os.path.join(config.DIR_PATH, str(i)) + '.txt'
+    with open(file_path, 'w') as f:
+      f.write(''.join(random.choice(string.letters) for _ in range(1000)))

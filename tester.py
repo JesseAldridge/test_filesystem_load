@@ -1,6 +1,6 @@
 import os, time, glob, subprocess, random, sys, codecs, locale, mmap
 
-import hardcoded_list
+import hardcoded_list, generate_fake_data
 
 def load_notes(dir_path, each_filename, read_file):
   start_time = time.time()
@@ -42,8 +42,14 @@ def mmap_load(path, stat):
       mm = mmap.mmap(f.fileno(), 0, prot=mmap.PROT_READ)
       return mm.read(stat.st_size)
 
-lister_funcs = [os.listdir, hardcoded_list.hardcoded_list, ls, glob_]
-random.shuffle(lister_funcs)
-for lister in lister_funcs:
-  print 'lister:', lister.__name__
-  load_notes(os.path.expanduser("~/Desktop/test_data"), lister, normal_load)
+def main():
+  lister_funcs = [os.listdir, ls, glob_]
+  random.shuffle(lister_funcs)
+  for lister in lister_funcs:
+    # print 'generating fake data...'
+    # generate_fake_data.generate_fake_data()
+    print 'lister:', lister.__name__
+    load_notes(os.path.expanduser("~/Desktop/test_data"), lister, normal_load)
+
+if __name__ == '__main__':
+  main()
