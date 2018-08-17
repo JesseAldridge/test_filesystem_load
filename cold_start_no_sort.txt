@@ -1,0 +1,31 @@
+$ python -m cProfile -s cumulative -o profile tester.py && python parse_profiler.py
+func: listdir
+  path: ~/Desktop/test_data
+  time taken: 3.05653977394
+func: hardcoded_lists
+  path: ~/Desktop/test_data
+  time taken: 0.266752004623
+func: ls
+  path: ~/Desktop/test_data
+  time taken: 0.413854122162
+func: glob_
+  path: ~/Desktop/test_data
+  time taken: 0.367607116699
+Fri Aug 17 02:55:17 2018    profile
+
+         376946 function calls (376940 primitive calls) in 7.749 seconds
+
+   Ordered by: cumulative time
+   List reduced from 190 to 50 due to restriction <50>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.020    0.020    7.749    7.749 tester.py:1(<module>)
+        8    0.826    0.103    7.682    0.960 tester.py:5(load_notes)
+    79027    5.486    0.000    5.486    0.000 {method 'read' of 'file' objects}
+    79025    1.081    0.000    1.081    0.000 {open}
+        2    0.000    0.000    0.384    0.192 tester.py:27(ls)
+        6    0.000    0.000    0.379    0.063 subprocess.py:122(_eintr_retry_call)
+        2    0.000    0.000    0.371    0.185 subprocess.py:452(communicate)
+        4    0.176    0.044    0.176    0.044 {posix.listdir}
+        2    0.000    0.000    0.104    0.052 tester.py:31(glob_)
+        2    0.003    0.001    0.104    0.052 glob.py:18(glob)

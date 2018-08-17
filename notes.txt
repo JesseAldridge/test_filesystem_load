@@ -1,0 +1,6 @@
+time ls ~/Desktop/test_data | python stdin.py
+  time taken: 0.518690109253
+
+real  0m0.612s
+user  0m0.406s
+sys 0m0.269s
