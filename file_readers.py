@@ -9,19 +9,21 @@ def normal_read(paths):
     text_list.append(text)
   return text_list
 
-def concurrent_read(paths):
-  def read_file(path):
-    with open(path) as f:
-      text = f.read()
-    text_list.append(text)
+def make_pooled_reader(n_threads):
+  def concurrent_read(paths):
+    def read_file(path):
+      with open(path) as f:
+        text = f.read()
+      text_list.append(text)
 
-  text_list = []
-  pool_ = pool.ThreadPool(2)
-  for path in paths:
-    pool_.apply_async(read_file, (path,))
-  pool_.close()
-  pool_.join()
-  return text_list
+    text_list = []
+    pool_ = pool.ThreadPool(n_threads)
+    for path in paths:
+      pool_.apply_async(read_file, (path,))
+    pool_.close()
+    pool_.join()
+    return text_list
+  return concurrent_read
 
 # mmap doesn't help (or maybe I just don't understand how to use it)
 # apparently normal read is faster than mmap on macOS
@@ -42,7 +44,7 @@ if __name__ == '__main__':
     print 'loaded:', len(text_list)
     assert len(text_list) == len(python_files)
 
-    text_list = concurrent_read(python_files)
+    text_list = make_pooled_reader(3)(python_files)
     print 'loaded:', len(text_list)
     assert len(text_list) == len(python_files)
   test()

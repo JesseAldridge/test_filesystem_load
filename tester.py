@@ -1,7 +1,7 @@
 import os, time, subprocess, random, json, threading
 from multiprocessing.pool import ThreadPool
 
-import file_readers, file_listers
+import file_readers, file_listers, config
 
 
 def load_test_data(dir_path, each_filename, read_files):
@@ -27,13 +27,19 @@ def sort_by_inode(paths):
 
 def main():
   lister_funcs = [os.listdir, file_listers.ls, file_listers.glob_]
-  random.shuffle(lister_funcs)
-  reader_funcs = [file_readers.normal_read, file_readers.concurrent_read]
-  random.shuffle(reader_funcs)
+  reader_funcs = [
+    file_readers.normal_read,
+    file_readers.make_pooled_reader(2),
+    file_readers.make_pooled_reader(4),
+  ]
+  true_false = [True, False]
 
   sort_to_lister_to_times = {}
   for i_run in range(10):
-    for should_sort in [True, False]:
+    random.shuffle(lister_funcs)
+    random.shuffle(reader_funcs)
+    random.shuffle(true_false)
+    for should_sort in true_false:
       sort_to_lister_to_times.setdefault(should_sort, {})
       for base_lister in lister_funcs:
         sort_to_lister_to_times[should_sort].setdefault(base_lister.__name__, {})
