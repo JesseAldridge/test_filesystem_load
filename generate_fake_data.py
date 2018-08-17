@@ -3,7 +3,8 @@ import os, random, string, shutil
 import config
 
 def generate_fake_data():
-  shutil.rmtree(config.DIR_PATH)
+  if os.path.exists(config.DIR_PATH):
+    shutil.rmtree(config.DIR_PATH)
   os.mkdir(config.DIR_PATH)
 
   for i in range(1000):
