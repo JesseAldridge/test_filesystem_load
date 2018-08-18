@@ -24,4 +24,57 @@ real  0m0.278s
 user  0m0.008s
 sys 0m0.040s
 
+# test_load.c is the same as ag
+
+$ time ./a.out "/Users/Jesse/test_filesystem_load_data/*.txt"
+loaded 1000 files
+real  0m0.293s
+user  0m0.009s
+sys 0m0.076s
+
+
 # variance is like 5x higher on mac box
+
+# running against my toothbrush notes on my mac
+# https://github.com/JesseAldridge/toothbrush
+# concurrent reading makes it slower
+
+$ python parse_results.py
+sorted by mean time:
+2.45 (u'false', u'glob_', u'normal_read')
+2.46 (u'false', u'listdir', u'normal_read')
+2.52 (u'true', u'glob_', u'normal_read')
+2.55 (u'true', u'listdir', u'normal_read')
+2.87 (u'false', u'listdir', u'pool 4')
+2.87 (u'false', u'glob_', u'pool 4')
+3.0 (u'true', u'listdir', u'pool 4')
+3.07 (u'true', u'glob_', u'pool 4')
+3.1 (u'false', u'listdir', u'pool 2')
+3.12 (u'false', u'glob_', u'pool 2')
+3.18 (u'false', u'listdir', u'pool 8')
+3.19 (u'true', u'listdir', u'pool 2')
+3.19 (u'true', u'glob_', u'pool 2')
+3.28 (u'true', u'listdir', u'pool 8')
+3.43 (u'false', u'glob_', u'pool 8')
+3.48 (u'true', u'glob_', u'pool 8')
+3.65 (u'false', u'glob_', u'pool 16')
+3.68 (u'false', u'listdir', u'pool 16')
+3.73 (u'true', u'listdir', u'pool 16')
+3.76 (u'true', u'glob_', u'pool 16')
+variance: 0.167616106687
+
+# ag runs 3x faster than the best case against tbrush_notes on my mac
+
+$ time ag xxxxxx
+...
+real  0m0.758s
+user  0m0.105s
+sys 0m0.477s
+
+# test_load.c takes 2 seconds
+
+$ time ./a.out "/Users/Jesse/Dropbox/tbrush_notes/*.txt"
+loaded 9771 files
+real  0m2.007s
+user  0m0.073s
+sys 0m0.554s
