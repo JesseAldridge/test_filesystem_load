@@ -23,7 +23,7 @@ def main():
   for config, mean_time in sorted(config_to_mean.items(), key=lambda t: t[1]):
     print round(mean_time, 2), config
 
-  print 'variance:', round(numpy.var(all_times), 3)
+  print 'variance:', numpy.var(all_times)
 
 def mean(list_):
   return sum(list_) / len(list_)
