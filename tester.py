@@ -1,4 +1,4 @@
-import os, time, subprocess, random, json, threading
+import os, time, subprocess, random, json, threading, sys
 from multiprocessing.pool import ThreadPool
 
 import file_readers, file_listers, config
@@ -24,6 +24,15 @@ def sort_by_inode(paths):
     filename_to_stat[filename] = os.stat(filename)
   for filename, stat in sorted(filename_to_stat.items(), key=lambda t: t[1].st_ino):
     yield filename
+
+def clear_memory_cache():
+  if sys.platform == "linux" or sys.platform == "linux2":
+
+  elif sys.platform == "darwin":
+    # Clears memory cache. Need to run this script with sudo to make this line work.
+    subprocess.call(['purge'])
+  elif sys.platform == "win32":
+     print 'windows'
 
 def main():
   lister_funcs = [os.listdir, file_listers.ls, file_listers.glob_]
@@ -58,8 +67,7 @@ def main():
           reader_to_times = sort_to_lister_to_times[should_sort][base_lister.__name__]
           reader_to_times.setdefault(reader.name, [])
 
-          # Clears memory cache. Need to run this script with sudo to make this line work.
-          subprocess.call(['purge'])
+          clear_memory_cache()
 
           print 'i_run:', i_run, 'should_sort:', should_sort, 'lister:', base_lister.__name__, \
                 'reader:', reader.name
