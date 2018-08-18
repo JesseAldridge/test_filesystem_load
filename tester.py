@@ -26,6 +26,8 @@ def sort_by_inode(paths):
     yield filename
 
 def main():
+  n_runs = int(sys.argv.get(1, 2))
+
   class Reader:
     def __init__(self, name, func):
       self.name = name
@@ -42,7 +44,7 @@ def main():
   ]
 
   sort_to_lister_to_times = {}
-  for i_run in range(10):
+  for i_run in range(n_runs):
     random.shuffle(lister_funcs)
     random.shuffle(readers)
     random.shuffle(true_false)
