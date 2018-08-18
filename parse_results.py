@@ -11,12 +11,9 @@ def main():
     for lister_name, reader_to_times in lister_to_reader_to_times.iteritems():
       for reader_name, times in reader_to_times.iteritems():
         mean_time = mean(times)
-        print '{}, {}, {}, {}'.format(mean_time, should_sort, lister_name, reader_name)
         reader_to_means.setdefault(reader_name, [])
         reader_to_means[reader_name].append(mean_time)
         config_to_mean[(should_sort, lister_name, reader_name)] = mean_time
-
-  print 'reader_to_means:', reader_to_means
 
   print 'sorted by mean time:'
   for config, mean_time in sorted(config_to_mean.items(), key=lambda t: t[1]):

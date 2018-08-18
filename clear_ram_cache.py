@@ -9,3 +9,6 @@ def clear_ram_cache():
     subprocess.call(['purge'])
   elif sys.platform == "win32":
      print 'windows'
+
+if __name__ == '__main__':
+  clear_ram_cache()
