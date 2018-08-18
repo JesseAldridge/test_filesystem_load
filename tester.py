@@ -26,7 +26,7 @@ def sort_by_inode(paths):
     yield filename
 
 def main():
-  n_runs = int(sys.argv.get(1, 2))
+  n_runs = int(sys.argv[1]) if len(sys.argv) > 1 else 2
 
   class Reader:
     def __init__(self, name, func):
