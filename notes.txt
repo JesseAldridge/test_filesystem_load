@@ -23,3 +23,5 @@ root@ubuntu-s-2vcpu-4gb-sfo2-01:~/test_filesystem_load_data# time ag xxxxxx
 real  0m0.278s
 user  0m0.008s
 sys 0m0.040s
+
+# variance is like 5x higher on mac box

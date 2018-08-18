@@ -38,6 +38,7 @@ def main():
     Reader('pool 2', file_readers.make_pooled_reader(2)),
     Reader('pool 4', file_readers.make_pooled_reader(4)),
     Reader('pool 8', file_readers.make_pooled_reader(8)),
+    Reader('pool 16', file_readers.make_pooled_reader(16)),
   ]
 
   sort_to_lister_to_times = {}
