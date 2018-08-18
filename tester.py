@@ -26,19 +26,18 @@ def sort_by_inode(paths):
     yield filename
 
 def main():
-  lister_funcs = [os.listdir, file_listers.ls, file_listers.glob_]
-
   class Reader:
     def __init__(self, name, func):
       self.name = name
       self.func = func
 
+  true_false = [True, False]
+  lister_funcs = [os.listdir, file_listers.glob_]
   readers = [
     Reader('normal_read', file_readers.normal_read),
     Reader('pool 2', file_readers.make_pooled_reader(2)),
     Reader('pool 4', file_readers.make_pooled_reader(4)),
   ]
-  true_false = [True, False]
 
   sort_to_lister_to_times = {}
   for i_run in range(10):
