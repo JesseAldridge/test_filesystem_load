@@ -1,4 +1,9 @@
 # https://github.com/ggreer/the_silver_searcher
+
+# on my mac ag is 2x faster than the best runs in my tester
+
+0.36 (u'true', u'listdir', u'normal_read')
+
 cd ~/test_filesystem_load_data
 sudo purge
 time ag xxxxxx
@@ -6,3 +11,15 @@ time ag xxxxxx
 real  0m0.165s
 user  0m0.023s
 sys 0m0.088s
+
+# on my Digital Ocean Ubuntu box, ag is slower
+# concurrent reads seem to work better here
+
+0.20 (u'false', u'listdir', u'pool 4')
+
+root@ubuntu-s-2vcpu-4gb-sfo2-01:~/test_filesystem_load_data# echo 3 > /proc/sys/vm/drop_caches
+root@ubuntu-s-2vcpu-4gb-sfo2-01:~/test_filesystem_load_data# time ag xxxxxx
+
+real  0m0.278s
+user  0m0.008s
+sys 0m0.040s
