@@ -16,8 +16,7 @@ def main():
         reader_to_means[reader_name].append(mean_time)
         config_to_mean[(should_sort, lister_name, reader_name)] = mean_time
 
-  print 'concurrent reads:', mean(reader_to_means['concurrent_read'])
-  print 'synchronous reads:', mean(reader_to_means['normal_read'])
+  print 'reader_to_means:', reader_to_means
 
   print 'sorted by mean time:'
   for config, mean_time in sorted(config_to_mean.items(), key=lambda t: t[1]):

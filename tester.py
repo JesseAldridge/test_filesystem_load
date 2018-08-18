@@ -1,7 +1,7 @@
 import os, time, subprocess, random, json, threading, sys
 from multiprocessing.pool import ThreadPool
 
-import file_readers, file_listers, config
+import file_readers, file_listers, config, clear_ram_cache
 
 
 def load_test_data(dir_path, each_filename, read_files):
@@ -58,7 +58,7 @@ def main():
           reader_to_times = sort_to_lister_to_times[should_sort][base_lister.__name__]
           reader_to_times.setdefault(reader.name, [])
 
-          clear_memory_cache()
+          clear_ram_cache.clear_ram_cache()
 
           print 'i_run:', i_run, 'should_sort:', should_sort, 'lister:', base_lister.__name__, \
                 'reader:', reader.name

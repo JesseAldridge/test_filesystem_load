@@ -1,3 +1,5 @@
+import sys, subprocess
+
 def clear_ram_cache():
   if sys.platform == "linux" or sys.platform == "linux2":
     subprocess.call(['sync'])
